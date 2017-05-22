@@ -1,7 +1,12 @@
 $s = Get-NetEventSession
 if($s -eq $null)
 {
-    New-NetEventSession -Name trc
-    Add-NetEventPacketCaptureProvider -SessionName trc -TruncationLength 0
+    $s = New-NetEventSession -Name SimpleCaptureScriptTrace
+    $p = Add-NetEventPacketCaptureProvider -SessionName SimpleCaptureScriptTrace -TruncationLength 0
 }
-Start-NetEventSession -Name trc
+if($s.Name -eq "SimpleCaptureScriptTrace")
+{
+    Start-NetEventSession -Name SimpleCaptureScriptTrace
+}
+Get-NetEventSession
+
